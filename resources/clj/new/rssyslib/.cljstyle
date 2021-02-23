@@ -1,0 +1,15 @@
+{:rules              {:indentation {:indents {#".*" [[:inner 0]]}},
+                      :blank-lines {:trim-consecutive? false :max-consecutive 3}
+                      :types       {:enabled? false}
+                      :namespaces  {:import-break-width 120}}
+
+ :align-associative? true
+
+ :files              {:ignore #{".clj-kondo" ".idea" ".cpcache" "target" ".git"}}
+
+ :test-code          (concat
+                       [2]
+                       (map
+                         (fn* [p1__5#] (inc (* p1__5# 2)))
+                         (filter (fn* [p1__6#] (aget sieved p1__6#)) (range 1 hn)))
+                       (->> [1 2 3] (filter odd?) (vec)))}

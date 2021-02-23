@@ -1,0 +1,16 @@
+== Changelog
+
+=== [0.1.0-SNAPSHOT] - 23-02-2021
+
+Initial release.
+
+==== Added
+
+* scripts for operations: clean, build, install, deploy, outdated, lint, format, test
+* project control via `Justfile`;
+* `cljstyle` formatter support;
+* dotenv files support using `direnv` utility:
+** `.env.public` - for public environment variables;
+** `.env.private` - for passwords and other secrets;
+* linter `clj-kondo` support with initial config;
+* project requirements script for MacOS

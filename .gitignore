@@ -1,0 +1,41 @@
+# exclude whole folders with logs
+log
+logs
+
+# exclude clj-kondo files except config
+.clj-kondo/*
+!*.clj-kondo/config.edn
+
+# exclude all .idea except some subfolders
+.idea/*
+!.idea/clojure-deps.xml
+!.idea/codeStyles/
+!.idea/copyright/
+
+# standard (default) exclusions
+/target
+/classes
+/checkouts
+*.jar
+*.class
+*.xml.asc
+/.cpcache
+/.lein-*
+/.nrepl-history
+/.nrepl-port
+.hgignore
+.hg/
+
+
+# exclude common files
+*.iml
+trace.edn
+.eastwood
+.nrepl-port
+
+# exclude private configs with sensitive data
+.env.private
+
+# allow public env vars for project
+!.env.public
+!.envrc

@@ -1,0 +1,40 @@
+{
+ :mvn/repos {"clojars" {:url "https://repo.clojars.org/"}
+             "central" {:url "https://repo1.maven.org/maven2/"}}
+
+ :paths     ["src" "resources"]
+
+ :deps      {org.clojure/clojure {:mvn/version "1.10.2"}}
+
+ :aliases   {
+             :repl     {:extra-deps  {nrepl/nrepl          {:mvn/version "0.8.3"}
+                                      healthsamurai/matcho {:mvn/version "0.3.7"}
+                                      criterium/criterium  {:mvn/version "0.4.6"}
+                                      hashp/hashp          {:mvn/version "0.2.0"}}
+                        :extra-paths ["dev/src" "resources" "test"]
+                        :jvm-opts    []
+                        :main-opts   ["--main" "nrepl.cmdline"]}
+
+             :test     {:extra-deps  {org.clojure/test.check        {:mvn/version "1.1.0"}
+                                      healthsamurai/matcho          {:mvn/version "0.3.7"}
+                                      lambdaisland/kaocha           {:mvn/version "1.0.732"}
+                                      lambdaisland/kaocha-cloverage {:mvn/version "1.0.75"}}
+                        :extra-paths ["resources" "test" "test/resources"]
+                        :jvm-opts    []
+                        :main-opts   ["--main" "kaocha.runner"]}
+
+             :jar      {:replace-deps {seancorfield/depstar {:mvn/version "2.0.187"}}
+                        :exec-fn      hf.depstar/jar
+                        :exec-args    {:jar "{{name}}.jar" :sync-pom true}}
+
+             :install  {:replace-deps {slipset/deps-deploy {:mvn/version "0.1.5"}}
+                        :exec-fn      deps-deploy.deps-deploy/deploy
+                        :exec-args    {:installer :local :artifact "{{name}}.jar"}}
+
+             :deploy   {:replace-deps {slipset/deps-deploy {:mvn/version "0.1.5"}}
+                        :exec-fn      deps-deploy.deps-deploy/deploy
+                        :exec-args    {:installer :remote :artifact "{{name}}.jar"}}
+
+             :outdated {:extra-deps {antq/antq {:mvn/version "0.11.1"}}
+                        :main-opts  ["-m" "antq.core"]}
+             }}

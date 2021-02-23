@@ -1,0 +1,172 @@
+image:https://img.shields.io/github/license/redstarssystems/rssyslib[license,link=LICENSE]
+image:https://img.shields.io/clojars/v/rssyslib/clj-template.svg[clojars,link=https://clojars.org/rssyslib/clj-template]
+
+== Library template
+
+:Author:            Mike Ananev
+:Date:              23/02/2021
+:git:               https://git-scm.com[git]
+:clojure-deps-cli:  https://clojure.org/guides/getting_started[clojure deps cli]
+:clj-new:           https://github.com/seancorfield/clj-new[clj-new]
+:just:              https://github.com/casey/just[just]
+:babashka:          https://github.com/babashka/babashka[babashka]
+:toc:
+
+=== Intro
+
+This `Library template` helps you to quick start new library project using {clojure-deps-cli} and {clj-new}.
+
+This `Library template` provides:
+
+- project control via `Justfile` (see {just});
+- environment variables control using `direnv` utility;
+- editor configuration via `.editorconfig` file;
+- configured `clj-kondo` linter;
+- configured `cljstyle` formatter;
+- run tests using https://github.com/lambdaisland/kaocha[kaocha].
+
+
+=== Install prerequisites
+
+All these tools you need to install only once.
+
+. Install {clojure-deps-cli} tools
+.. MacOS
++
+[source,bash]
+----
+brew install clojure/tools/clojure
+----
+.. Linux
++
+Ensure that the following dependencies are installed in OS: `bash`, `curl`, `rlwrap`, and `Java`.
++
+[source, bash]
+----
+curl -O https://download.clojure.org/install/linux-install-1.10.2.790.sh
+chmod +x linux-install-1.10.2.790.sh
+sudo ./linux-install-1.10.2.790.sh
+----
+
+. Install latest {clj-new} library to a file `~/.clojure/deps.edn`
++
+[source, clojure]
+----
+{
+ :aliases {
+
+            :clj-new     {:extra-deps {seancorfield/clj-new {:mvn/version "1.1.243"}}
+                                     :exec-fn    clj-new/create
+                                     :main-opts  ["-m" "clj-new.create"]}
+          }
+
+ }
+----
+
+. Install {just} utility
+.. MacOS
++
+[source, bash]
+----
+brew install just
+----
+
+.. Linux
++
+[source, bash]
+----
+wget https://github.com/casey/just/releases/download/v0.8.3/just-v0.8.3-x86_64-unknown-linux-musl.tar.gz
+
+tar -zxvf just-v0.8.3-x86_64-unknown-linux-musl.tar.gz just
+
+sudo mv ./just /usr/local/bin
+----
+
+. Install {babashka}
+.. MacOS
++
+[source, bash]
+----
+brew install borkdude/brew/babashka
+----
++
+.. Linux
++
+[source, bash]
+----
+sudo bash < <(curl -s https://raw.githubusercontent.com/babashka/babashka/master/install)
+----
+
+
+=== Using Library template
+
+==== New library project
+
+Creating a project from this template (the `:clj-new` alias in this template project defaults `:template` to rssyslib):
+
+[source, bash]
+----
+    clojure -X:clj-new :template rssyslib :name myname/myproject
+    cd myproject
+----
+
+See `README.adoc` in a root folder of created project.
+
+=== Managing this project
+
+==== Clean project
+
+To clean target folder run:
+
+[source,bash]
+----
+just clean
+----
+
+==== Build project
+
+To build this library template run:
+
+[source,bash]
+----
+just build
+----
+
+This command will produce deployable jar file and update the generated `pom.xml` file to keep the dependencies synchronized with your `deps.edn` file.
+You can update the version information in the `pom.xml` using the `version_id` file.
+
+==== Install artifact
+
+To install jar file to local .m2 run:
+
+[source,bash]
+----
+just install
+----
+
+==== Deploy artifact
+
+To deploy jar file to Clojars run:
+
+[source,bash]
+----
+just deploy
+----
+
+Check `.env.private` file for correct values of user and password.
+
+==== Check old dependencies
+
+To check project for outdated dependencies run:
+
+[source,bash]
+----
+just outdated
+----
+
+=== License
+
+Copyright © 2021 {Author} +
+Distributed under the Eclipse Public License 2.0 or (at your option) any later version.
+
+

@@ -1,0 +1,131 @@
+== {{name}}
+:git:               https://git-scm.com[git]
+:clojure-deps-cli:  https://clojure.org/guides/getting_started[clojure deps cli]
+:clj-new:           https://github.com/seancorfield/clj-new[clj-new]
+:just:              https://github.com/casey/just[just]
+:babashka:          https://github.com/babashka/babashka[babashka]
+:toc:
+
+Project {{name}} generated from library template https://github.com/redstarssystems/rssyslib.
+
+
+=== Install project prerequisites
+
+All these tools you need to install only once.
+
+. Install {clojure-deps-cli} tools
+.. MacOS
++
+[source,bash]
+----
+brew install clojure/tools/clojure
+----
+.. Linux
++
+Ensure that the following dependencies are installed in OS: `bash`, `curl`, `rlwrap`, and `Java`.
++
+[source, bash]
+----
+curl -O https://download.clojure.org/install/linux-install-1.10.2.790.sh
+chmod +x linux-install-1.10.2.790.sh
+sudo ./linux-install-1.10.2.790.sh
+----
+
+. Install latest {clj-new} library to a file `~/.clojure/deps.edn`
++
+[source, clojure]
+----
+{
+ :aliases {
+
+            :clj-new     {:extra-deps {seancorfield/clj-new {:mvn/version "1.1.243"}}
+                                     :exec-fn    clj-new/create
+                                     :main-opts  ["-m" "clj-new.create"]}
+          }
+
+ }
+----
+
+. Install {just} utility
+.. MacOS
++
+[source, bash]
+----
+brew install just
+----
+
+.. Linux
++
+[source, bash]
+----
+wget https://github.com/casey/just/releases/download/v0.8.3/just-v0.8.3-x86_64-unknown-linux-musl.tar.gz
+
+tar -zxvf just-v0.8.3-x86_64-unknown-linux-musl.tar.gz just
+
+sudo mv ./just /usr/local/bin
+----
+
+. Install {babashka}
+.. MacOS
++
+[source, bash]
+----
+brew install borkdude/brew/babashka
+----
++
+.. Linux
++
+[source, bash]
+----
+sudo bash < <(curl -s https://raw.githubusercontent.com/babashka/babashka/master/install)
+----
+
+. Run once:
++
+[source,bash]
+----
+just requirements
+----
+to install other necessary tools (MacOS only, for Linux manual instruction).
+
+. Run once in project folder:
++
+[source,bash]
+----
+direnv allow
+----
+
+to allow `direnv` to load environment variables from `.env.public` and `.env.private` files.
+
+
+=== Project workflow
+
+To configure project workflow scripts use `Justfile`.
+
+To configure project version use file `version_id`
+
+To configure `group-id` and `artifact-id` for jar file use file `.env.public`
+
+Run `just` to show help for project workflow.
+
+List of available `just` commands:
+
+* `requirements`  - install necessary tools (MacOS only): clj-kondo, cljstyle, jenv, direnv. For Linux install them manually.
+* `clean`         - clear target folder
+* `repl`          - run Clojure REPL
+* `build`         - build jar file (as library)
+* `install`       - install jar file (library) to local .m2
+* `outdated`      - check for outdated dependencies
+* `deploy`        - deploy jar file (library) to remote repository
+* `test`          - run tests
+* `bump`          - bump version artifact in `version_id` file. Parameter should be one of: major, minor, patch, alpha, beta, rc
+* `format`        - format source code
+* `lint`          - lint source code
+
+
+=== License
+
+Copyright © 2021 {Author} +
+Distributed under the Eclipse Public License 2.0 or (at your option) any later version.
+
+

@@ -1,0 +1,32 @@
+{:paths   ["src" "resources"]
+
+ :deps    {org.clojure/clojure  {:mvn/version "1.10.2"}
+           seancorfield/clj-new {:mvn/version "1.1.243"}}
+
+ :aliases {
+           :new      {:exec-fn   clj-new/create
+                      :exec-args {:template "rssyslib"}}
+
+           :test     {:extra-paths ["test"]
+                      :extra-deps  {org.clojure/test.check {:mvn/version "1.1.0"}}}
+
+           :repl     {:extra-deps  {nrepl/nrepl          {:mvn/version "0.8.3"}
+                                    healthsamurai/matcho {:mvn/version "0.3.7"}
+                                    criterium/criterium  {:mvn/version "0.4.6"}
+                                    hashp/hashp          {:mvn/version "0.2.0"}}
+                      :extra-paths ["dev/src" "resources" "test"]
+                      :jvm-opts    []
+                      :main-opts   ["--main" "nrepl.cmdline"]}
+
+           :jar      {:replace-deps {seancorfield/depstar {:mvn/version "2.0.187"}}
+                      :exec-fn      hf.depstar/jar
+                      :exec-args    {:jar "rssyslib.jar" :sync-pom true}}
+
+           :install  {:replace-deps {slipset/deps-deploy {:mvn/version "0.1.5"}}
+                      :exec-fn      deps-deploy.deps-deploy/deploy}
+
+           :deploy   {:replace-deps {slipset/deps-deploy {:mvn/version "0.1.5"}}
+                      :exec-fn      deps-deploy.deps-deploy/deploy}
+
+           :outdated {:extra-deps {antq/antq {:mvn/version "0.11.1"}}
+                      :main-opts  ["-m" "antq.core"]}}}

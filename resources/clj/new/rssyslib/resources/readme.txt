@@ -1,0 +1,1 @@
+Put resources in this folder.
