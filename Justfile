@@ -19,12 +19,12 @@ default:
 
 # Install project requirements (OS will be detected automatically)
 requirements:
-    _@{{ if CURRENT_OS == 'macos' {"just macos-requirements" } else {""} }}
-    _@{{ if CURRENT_OS == 'linux' {"just linux-requirements" } else {""} }}
+    @{{ if CURRENT_OS == 'macos' {"just _macos-requirements" } else {""} }}
+    @{{ if CURRENT_OS == 'linux' {"just _linux-requirements" } else {""} }}
 
 # Install project requirements for MacOS
 _macos-requirements:
-    _@just _cmdprint "Installing MacOS requirements...\n"
+    @just _cmdprint "Installing MacOS requirements...\n"
     -brew install git
     -brew install coreutils
     -brew install direnv
@@ -32,7 +32,7 @@ _macos-requirements:
     -brew install cljstyle && xattr -r -d com.apple.quarantine /usr/local/bin/cljstyle
     -brew install borkdude/brew/clj-kondo
 
-    _@just cprint '{{YELLOW_COLOR}}' "\nDon't forget to install 'direnv' & 'jenv' hooks for your shell.\n"
+    @just _cprint '{{YELLOW_COLOR}}' "\nDon't forget to install 'direnv' & 'jenv' hooks for your shell.\n"
     @echo 'zsh hooks example:'
     @echo '\texport PATH="$HOME/.jenv/bin:$PATH"'
     @echo '\teval "$(jenv init -)"'
