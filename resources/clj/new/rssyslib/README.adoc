@@ -37,12 +37,9 @@ sudo ./linux-install-1.10.2.790.sh
 ----
 {
  :aliases {
-
-            :clj-new     {:extra-deps {seancorfield/clj-new {:mvn/version "1.1.243"}}
-                                     :exec-fn    clj-new/create
-                                     :main-opts  ["-m" "clj-new.create"]}
+           :clj-new     {:extra-deps {seancorfield/clj-new {:mvn/version "1.1.243"}}
+                         :exec-fn    clj-new/create}
           }
-
  }
 ----
 
@@ -125,7 +122,7 @@ List of available `just` commands:
 
 === License
 
-Copyright © 2021 {Author} +
+Copyright © 2021 {{user}} +
 Distributed under the Eclipse Public License 2.0 or (at your option) any later version.
 
 

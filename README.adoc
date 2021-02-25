@@ -18,12 +18,27 @@ This `Library template` helps you to quick start new library project using {cloj
 
 This `Library template` provides:
 
-- project control via `Justfile` (see {just});
+- project control via `Justfile` (see {just}) and scripting using {babashka};
 - environment variables control using `direnv` utility;
 - editor configuration via `.editorconfig` file;
 - configured `clj-kondo` linter;
 - configured `cljstyle` formatter;
 - run tests using https://github.com/lambdaisland/kaocha[kaocha].
+
+=== Using Library template
+
+==== New library project
+
+Creating a project from this template just run:
+
+[source, bash]
+----
+    clojure -X:clj-new :template rssyslib :name myname/myproject
+    cd myproject
+----
+where `:clj-new` is alias in `~/.clojure/deps.edn` file (see prerequisites below).
+
+Please, `README.adoc` in a root folder of created project.
 
 
 === Install prerequisites
@@ -54,10 +69,8 @@ sudo ./linux-install-1.10.2.790.sh
 ----
 {
  :aliases {
-
-            :clj-new     {:extra-deps {seancorfield/clj-new {:mvn/version "1.1.243"}}
-                                     :exec-fn    clj-new/create
-                                     :main-opts  ["-m" "clj-new.create"]}
+           :clj-new     {:extra-deps {seancorfield/clj-new {:mvn/version "1.1.243"}}
+                         :exec-fn    clj-new/create}
           }
 
  }
@@ -98,20 +111,6 @@ sudo bash < <(curl -s https://raw.githubusercontent.com/babashka/babashka/master
 ----
 
 
-=== Using Library template
-
-==== New library project
-
-Creating a project from this template (the `:clj-new` alias in this template project defaults `:template` to rssyslib):
-
-[source, bash]
-----
-    clojure -X:clj-new :template rssyslib :name myname/myproject
-    cd myproject
-----
-
-See `README.adoc` in a root folder of created project.
-
 === Managing this project
 
 ==== Clean project
@@ -121,6 +120,22 @@ To clean target folder run:
 [source,bash]
 ----
 just clean
+----
+
+==== Bump artifact version
+
+To set release version run:
+
+[source,bash]
+----
+just bump release
+----
+
+To update patch version run:
+
+[source,bash]
+----
+just bump patch
 ----
 
 ==== Build project
