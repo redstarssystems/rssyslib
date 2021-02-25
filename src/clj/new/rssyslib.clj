@@ -26,4 +26,5 @@
       ["tests.edn" (render "tests.edn" data)]
       ["version_id" (render "version_id" data)]
       ["README.adoc" (render "README.adoc" data)]
+      ["scripts/bump-semver.clj" (render "scripts/bump-semver.clj" data)]
       )))
