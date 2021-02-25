@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>rssyslib</groupId>
   <artifactId>clj-template</artifactId>
-  <version>0.1.0-SNAPSHOT</version>
+  <version>0.1.0</version>
   <name>rssyslib</name>
   <description>Red Stars Systems library template.</description>
   <url>https://github.com/redstarssystems/rssyslib</url>
