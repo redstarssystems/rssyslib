@@ -30,6 +30,7 @@ _macos-requirements:
     -brew install direnv
     -brew install jenv
     -brew install cljstyle && xattr -r -d com.apple.quarantine /usr/local/bin/cljstyle
+    -brew install borkdude/brew/clj-kondo
 
     _@just cprint '{{YELLOW_COLOR}}' "\nDon't forget to install 'direnv' & 'jenv' hooks for your shell.\n"
     @echo 'zsh hooks example:'
@@ -41,7 +42,7 @@ _macos-requirements:
 # Install project requirements for Linux
 _linux-requirements:
     @echo "Installing Linux requirements...is not implemented."
-    @echo "Please, ensure that following tools are installed: git, direnv, jenv, cljstyle."
+    @echo "Please, ensure that the following tools are installed: git, direnv, jenv, cljstyle, clj-kondo."
     @exit 1
 
 # Print command name
@@ -94,3 +95,9 @@ repl:
 outdated:
     @just _cmdprint "Checking for outdated dependencies...\n"
     @clojure -M:outdated
+
+#  Bump version artifact in `version_id` file. Parameter should be one of: major, minor, patch, alpha, beta, rc, release.
+bump level='patch':
+    @just _cmdprint "Bumping version artifact: {{VERSION_ID}} at level {{level}} in file 'version_id'...\n"
+    @bb -f scripts/bump-semver.clj {{VERSION_ID}} {{level}} > version_id
+    @just _cprint '{{YELLOW_COLOR}}' "New version artifact: `cat version_id`\n"
