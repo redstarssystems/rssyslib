@@ -1,5 +1,14 @@
 == Changelog
 
+=== [0.1.1] - 26-02-2021
+
+Minor changes.
+
+==== Fixed
+
+* pom.xml rendering
+* comments in scripts and docs.
+
 === [0.1.0-SNAPSHOT] - 23-02-2021
 
 Initial release.
