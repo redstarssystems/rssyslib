@@ -29,7 +29,7 @@ This `Library template` provides:
 
 ==== New library project
 
-Before run creating project command, please install prerequisites (see below).
+Before run creating project command, please install prerequisites (see below). +
 Creating a project from this template just run:
 
 [source, bash]
