@@ -7,6 +7,7 @@
   (let [render (renderer "rssyslib")
         data   (project-data name)]
     (println "Generating project from library template https://github.com/redstarssystems/rssyslib.git")
+    (println "See README.adoc in project root to install once project prerequisites.")
     (->files data
       [".clj-kondo/config.edn" (render ".clj-kondo/config.edn" data)]
       ["dev/src/user.clj" (render "dev/src/user.clj" data)]
