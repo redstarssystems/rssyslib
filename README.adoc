@@ -25,12 +25,16 @@ This `Library template` provides:
 - configured `cljstyle` formatter;
 - run tests using https://github.com/lambdaisland/kaocha[kaocha].
 
+See also:
+
+* https://github.com/redstarssystems/rssysapp[Application template]
+
 === Using Library template
 
 ==== New library project
 
-Before run creating project command, please install prerequisites (see below). +
-Creating a project from this template just run:
+Before creating a project from this template, please install prerequisites (see below).
+To create a project from this template just run:
 
 [source, bash]
 ----
