@@ -23,7 +23,7 @@
                         :jvm-opts    []
                         :main-opts   ["--main" "kaocha.runner"]}
 
-             :jar      {:replace-deps {seancorfield/depstar {:mvn/version "2.0.187"}}
+             :jar      {:replace-deps {seancorfield/depstar {:mvn/version "2.0.188"}}
                         :exec-fn      hf.depstar/jar
                         :exec-args    {:jar "{{name}}.jar" :sync-pom true}}
 
