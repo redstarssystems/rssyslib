@@ -64,7 +64,7 @@ To create a project from this template just run:
 ----
 where `:clj-new` is alias in `~/.clojure/deps.edn` file (see prerequisites below).
 
-IMPORTANT: Please, see `README.adoc` in a root folder of created project to install other tools once.
+NOTE: Please, see `README.adoc` in a root folder of created project to install other tools once.
 
 
 === Install prerequisites
