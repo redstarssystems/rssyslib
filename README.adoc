@@ -25,6 +25,27 @@ This `Library template` provides:
 - configured `cljstyle` formatter;
 - run tests using https://github.com/lambdaisland/kaocha[kaocha].
 
+This template will give you the following basic project workflow:
+[source, bash]
+----
+mike@mbp02 just
+List of available recipes
+Available recipes:
+    build              # Build deployable jar file of this project
+    bump level='patch' # Bump version artifact in `version_id` file. Parameter should be one of: major, minor, patch, alpha, beta, rc, release.
+    clean              # Clean target folder
+    default            # Help
+    deploy             # Deploy this library to Clojars
+    format             # Format source code
+    install            # Install deployable jar locally (requires the pom.xml file)
+    lint               # Lint source code
+    outdated           # Check for outdated dependencies
+    repl               # Run Clojure repl
+    requirements       # Install project requirements (OS will be detected automatically)
+    test               # Run tests
+----
+
+
 See also:
 
 * https://github.com/redstarssystems/rssysapp[Application template]
