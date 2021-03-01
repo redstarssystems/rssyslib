@@ -28,21 +28,18 @@ _macos-requirements:
     -brew install git
     -brew install coreutils
     -brew install direnv
-    -brew install jenv
     -brew install cljstyle && xattr -r -d com.apple.quarantine /usr/local/bin/cljstyle
     -brew install borkdude/brew/clj-kondo
 
-    @just _cprint '{{YELLOW_COLOR}}' "\nDon't forget to install 'direnv' & 'jenv' hooks for your shell.\n"
+    @just _cprint '{{YELLOW_COLOR}}' "\nDon't forget to install 'direnv' hooks for your shell.\n"
     @echo 'zsh hooks example:'
-    @echo '\texport PATH="$HOME/.jenv/bin:$PATH"'
-    @echo '\teval "$(jenv init -)"'
     @echo '\teval "$(direnv hook zsh)"\n'
 
 
 # Install project requirements for Linux
 _linux-requirements:
     @echo "Installing Linux requirements...is not implemented."
-    @echo "Please, ensure that the following tools are installed: git, direnv, jenv, cljstyle, clj-kondo."
+    @echo "Please, ensure that the following tools are installed: git, direnv, cljstyle, clj-kondo."
     @exit 1
 
 # Print command name

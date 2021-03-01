@@ -107,7 +107,7 @@ Run `just` to show help for project workflow.
 
 List of available `just` commands:
 
-* `requirements`  - install necessary tools (MacOS only): clj-kondo, cljstyle, jenv, direnv. For Linux install them manually.
+* `requirements`  - install necessary tools (MacOS only): clj-kondo, cljstyle, direnv. For Linux install them manually.
 * `clean`         - clear target folder
 * `repl`          - run Clojure REPL
 * `build`         - build jar file (as library)
