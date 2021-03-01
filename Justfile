@@ -31,8 +31,8 @@ _macos-requirements:
     -brew install cljstyle && xattr -r -d com.apple.quarantine /usr/local/bin/cljstyle
     -brew install borkdude/brew/clj-kondo
 
-    @just _cprint '{{YELLOW_COLOR}}' "\nDon't forget to install 'direnv' hooks for your shell.\n"
-    @echo 'zsh hooks example:'
+    @just _cprint '{{YELLOW_COLOR}}' "\nDon't forget to install 'direnv' hook for your shell.\n"
+    @echo 'zsh hook example:'
     @echo '\teval "$(direnv hook zsh)"\n'
 
 

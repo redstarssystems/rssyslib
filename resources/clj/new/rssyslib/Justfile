@@ -34,7 +34,7 @@ _macos-requirements:
     -brew install borkdude/brew/clj-kondo
 
     @just _cprint '{{YELLOW_COLOR}}' "\nDon't forget to install 'direnv' hook for your shell.\n"
-    @echo 'zsh hooks example:'
+    @echo 'zsh hook example:'
     @echo '\teval "$(direnv hook zsh)"\n'
 
 
