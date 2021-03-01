@@ -1,10 +1,14 @@
 == Changelog
 
-=== [0.1.1] - 02-03-2021
+=== [0.1.2] - next release
 
 ==== Breaking changes
 
 * removed `jenv` from project requirements
+
+=== [0.1.1] - 26-02-2021
+
+Minor changes.
 
 ==== Fixed
 
