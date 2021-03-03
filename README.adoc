@@ -32,7 +32,7 @@ mike@mbp02 just
 List of available recipes
 Available recipes:
     build              # Build deployable jar file of this project
-    bump level='patch' # Bump version artifact in `version_id` file. Parameter should be one of: major, minor, patch, alpha, beta, rc, release.
+    bump level='patch' # Bump version artifact in `version_id` file, level may be one of: major, minor, patch, alpha, beta, rc, release.
     clean              # Clean target folder
     default            # Help
     deploy             # Deploy this library to Clojars

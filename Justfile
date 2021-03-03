@@ -93,8 +93,8 @@ outdated:
     @just _cmdprint "Checking for outdated dependencies...\n"
     @clojure -M:outdated
 
-#  Bump version artifact in `version_id` file. Parameter should be one of: major, minor, patch, alpha, beta, rc, release.
-bump level='patch':
+#  Bump version artifact in `version_id` file, level may be one of: major, minor, patch, alpha, beta, rc, release.
+bump level='patch' value='':
     @just _cmdprint "Bumping version artifact: {{VERSION_ID}} at level {{level}} in file 'version_id'...\n"
-    @bb -f scripts/bump-semver.clj {{VERSION_ID}} {{level}} > version_id
+    @bb -f scripts/bump-semver.clj {{VERSION_ID}} {{level}} {{value}} > version_id
     @just _cprint '{{YELLOW_COLOR}}' "New version artifact: `cat version_id`\n"

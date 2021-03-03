@@ -1,5 +1,13 @@
 == Changelog
 
+=== [1.0.0] - 03-03-2021
+
+==== Added
+
+* now it is possible to set the particular value to `major`, `minor`, `patch` sections when doing version bumping.
+It may be useful when we want to set `patch` version to the number of commits from the beginning
+(e.g. `just bump patch git rev-list HEAD --count`).
+
 === [0.1.2] - 02-03-2021
 
 ==== Breaking changes

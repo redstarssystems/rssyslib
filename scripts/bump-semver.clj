@@ -55,14 +55,14 @@
   a map of the version incremented in the level argument.  Always returns a
   SNAPSHOT version, unless the level is :release.  For :release, removes SNAPSHOT
   if the input is a SNAPSHOT, removes qualifier if the input is not a SNAPSHOT."
-  [{:keys [major minor patch qualifier snapshot]} level]
+  [{:keys [major minor patch qualifier snapshot]} level value]
   (let [level (or level
                 (if qualifier :qualifier)
                 :patch)]
     (case (keyword (name level))
-      :major {:major (inc major) :minor 0 :patch 0 :qualifier nil :snapshot "SNAPSHOT"}
-      :minor {:major major :minor (inc minor) :patch 0 :qualifier nil :snapshot "SNAPSHOT"}
-      :patch {:major major :minor minor :patch (inc patch) :qualifier nil :snapshot "SNAPSHOT"}
+      :major {:major (if value value (inc major)) :minor 0 :patch 0 :qualifier nil :snapshot "SNAPSHOT"}
+      :minor {:major major :minor (if value value (inc minor)) :patch 0 :qualifier nil :snapshot "SNAPSHOT"}
+      :patch {:major major :minor minor :patch (if value value (inc patch)) :qualifier nil :snapshot "SNAPSHOT"}
       :alpha {:major     major :minor minor :patch patch
               :qualifier (next-qualifier "alpha" qualifier)
               :snapshot  "SNAPSHOT"}
@@ -84,10 +84,10 @@
   "Given a version string, return the bumped version string -
    incremented at the indicated level. Add qualifier unless releasing
    non-snapshot. Level defaults to *level*."
-  [version-str & [level]]
+  [version-str & [level value]]
   (-> version-str
     (parse-semantic-version)
-    (bump-version-map (or level *level*))
+    (bump-version-map (or level *level*) value)
     (version-map->string)))
 
 ;; end of Leiningen code
@@ -95,5 +95,11 @@
 
 
 (let [version (first *command-line-args*)
-      level (second *command-line-args*)]
-  (println (bump-version version level)))
+      level   (second *command-line-args*)
+      value   (first (drop 2 *command-line-args*))]
+  (try
+    (println (bump-version version level value))
+    (catch Exception e
+      (binding [*out* *err*]
+        (println "Error processing version value: " version " " (.getMessage e)))
+      (println version))))
