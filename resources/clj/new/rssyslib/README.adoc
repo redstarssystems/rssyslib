@@ -115,7 +115,7 @@ List of available `just` commands:
 * `outdated`      - check for outdated dependencies
 * `deploy`        - deploy jar file (library) to remote repository
 * `test`          - run tests
-* `bump`          - bump version artifact in `version_id` file. Parameter should be one of: major, minor, patch, alpha, beta, rc, release.
+* `bump`          - bump version artifact in `version_id` file, level may be one of: major, minor, patch, alpha, beta, rc, release.
 * `format`        - format source code
 * `lint`          - lint source code
 
