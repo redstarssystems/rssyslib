@@ -152,6 +152,13 @@ brew install direnv
 sudo bash < <(curl -s https://direnv.net/install.sh)
 ----
 
+Also, don't forget to install {direnv} hook for your shell.
+Example for `zsh` shell:
+[source, bash]
+----
+echo 'eval "$(direnv hook zsh)"\n' >> ~/.zshrc
+----
+
 === Managing this project
 
 ==== Clean project
