@@ -10,6 +10,7 @@ image:https://img.shields.io/clojars/v/rssyslib/clj-template.svg[clojars,link=ht
 :clj-new:           https://github.com/seancorfield/clj-new[clj-new]
 :just:              https://github.com/casey/just[just]
 :babashka:          https://github.com/babashka/babashka[babashka]
+:direnv:            https://github.com/direnv/direnv[direnv]
 :toc:
 
 === Intro
@@ -136,6 +137,20 @@ brew install borkdude/brew/babashka
 sudo bash < <(curl -s https://raw.githubusercontent.com/babashka/babashka/master/install)
 ----
 
+.Install {direnv}
+.. MacOS
++
+[source, bash]
+----
+brew install direnv
+----
++
+.. Linux
++
+[source, bash]
+----
+sudo bash < <(curl -s https://direnv.net/install.sh)
+----
 
 === Managing this project
 
