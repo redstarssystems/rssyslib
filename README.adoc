@@ -54,10 +54,10 @@ To create a project from this template just run:
 
 [source, bash]
 ----
-    clojure -X:clj-new :template org.rssys.libtemplate :name com.example/lib01
+    clojure -X:new :template org.rssys.libtemplate :name com.example/lib01
     cd lib01
 ----
-where `:clj-new` is alias in `~/.clojure/deps.edn` file (see prerequisites below).
+where `:new` is alias in `~/.clojure/deps.edn` file (see prerequisites below).
 
 NOTE: Please, see `README.adoc` in a root folder of created project to install other tools once.
 
@@ -90,8 +90,8 @@ sudo ./linux-install-1.10.3.822.sh
 ----
 {
  :aliases {
-           :clj-new     {:extra-deps {seancorfield/clj-new {:mvn/version "1.1.243"}}
-                         :exec-fn    clj-new/create}
+           :new     {:extra-deps {seancorfield/clj-new {:mvn/version "1.1.297"}}
+                     :exec-fn    clj-new/create}
           }
 
  }

@@ -25,9 +25,9 @@ Ensure that the following dependencies are installed in OS: `bash`, `curl`, `rlw
 +
 [source, bash]
 ----
-curl -O https://download.clojure.org/install/linux-install-1.10.2.790.sh
-chmod +x linux-install-1.10.2.790.sh
-sudo ./linux-install-1.10.2.790.sh
+curl -O https://download.clojure.org/install/linux-install-1.10.3.822.sh
+chmod +x linux-install-1.10.3.822.sh
+sudo ./linux-install-1.10.3.822.sh
 ----
 
 . Install latest {clj-new} library to a file `~/.clojure/deps.edn`
@@ -36,8 +36,8 @@ sudo ./linux-install-1.10.2.790.sh
 ----
 {
  :aliases {
-           :clj-new     {:extra-deps {seancorfield/clj-new {:mvn/version "1.1.243"}}
-                         :exec-fn    clj-new/create}
+           :new     {:extra-deps {seancorfield/clj-new {:mvn/version "1.1.297"}}
+                     :exec-fn    clj-new/create}
           }
  }
 ----
