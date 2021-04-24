@@ -1,6 +1,13 @@
 == Changelog
 
 
+=== [2.0.2] - 24-04-2021
+
+==== Changed
+
+* minor changes
+
+
 === [2.0.1] - 24-04-2021
 
 ==== Changed
