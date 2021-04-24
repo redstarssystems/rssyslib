@@ -2,7 +2,6 @@
 :git:               https://git-scm.com[git]
 :clojure-deps-cli:  https://clojure.org/guides/getting_started[clojure deps cli]
 :clj-new:           https://github.com/seancorfield/clj-new[clj-new]
-:just:              https://github.com/casey/just[just]
 :babashka:          https://github.com/babashka/babashka[babashka]
 :toc:
 
@@ -43,26 +42,7 @@ sudo ./linux-install-1.10.2.790.sh
  }
 ----
 
-. Install {just} utility
-.. MacOS
-+
-[source, bash]
-----
-brew install just
-----
-
-.. Linux
-+
-[source, bash]
-----
-wget https://github.com/casey/just/releases/download/v0.8.3/just-v0.8.3-x86_64-unknown-linux-musl.tar.gz
-
-tar -zxvf just-v0.8.3-x86_64-unknown-linux-musl.tar.gz just
-
-sudo mv ./just /usr/local/bin
-----
-
-. Install {babashka}
+. Install {babashka} v0.3.5+
 .. MacOS
 +
 [source, bash]
@@ -85,40 +65,31 @@ just requirements
 ----
 to install other necessary tools (MacOS only, for Linux manual instruction).
 
-. Run once in project folder:
-+
-[source,bash]
-----
-direnv allow
-----
-
-to allow `direnv` to load environment variables from `.env.public` and `.env.private` files.
-
-
 === Project workflow
 
-To configure project workflow scripts use `Justfile`.
+To configure project workflow scripts use `bb.edn`.
 
-To configure project version use file `version_id`
+To configure project version use file `project-version`
 
-To configure `group-id` and `artifact-id` for jar file use file `.env.public`
+To configure `group-id` and `artifact-id` for jar file use file `project-config`
 
-Run `just` to show help for project workflow.
+Run `bb tasks` to show help for project workflow.
 
-List of available `just` commands:
-
-* `requirements`  - install necessary tools (MacOS only): clj-kondo, cljstyle, direnv. For Linux install them manually.
-* `clean`         - clear target folder
-* `repl`          - run Clojure REPL
-* `build`         - build jar file (as library)
-* `install`       - install jar file (library) to local .m2
-* `outdated`      - check for outdated dependencies
-* `deploy`        - deploy jar file (library) to remote repository
-* `test`          - run tests
-* `bump`          - bump version artifact in `version_id` file, level may be one of: major, minor, patch, alpha, beta, rc, release.
-* `format`        - format source code
-* `lint`          - lint source code
-
+List of available tasks:
+[source, bash]
+----
+build        Build deployable jar file for this project
+bump         Bump version artifact in `project-version` file, level may be one of: major, minor, patch, alpha, beta, rc, release.
+clean        Clean target folder
+deploy       Deploy this library to Clojars
+format       Format source code
+install      Install deployable jar locally (requires the pom.xml file)
+lint         Lint source code
+outdated     Check for outdated dependencies
+repl         Run Clojure repl
+requirements Install project requirements
+test         Run tests
+----
 
 === License
 

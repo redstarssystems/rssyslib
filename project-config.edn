@@ -1,0 +1,9 @@
+;; Project configuration
+;; Put here your environment variables and public configuration parameters for this project
+{
+ :project-name "libtemplate"
+ :group-id     "org.rssys.libtemplate"
+ :artifact-id  "clj-template"
+ }
+
+

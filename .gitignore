@@ -34,8 +34,7 @@ trace.edn
 .nrepl-port
 
 # exclude private configs with sensitive data
-.env.private
+project-secrets.edn
 
 # allow public env vars for project
-!.env.public
-!.envrc
+!project-config.edn

@@ -1,0 +1,118 @@
+{:deps  {cprop/cprop {:mvn/version "0.1.17"}}
+ :tasks {:requires         ([babashka.fs :as fs])
+         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+         ;; helpers and constants
+         -target-folder    "target"
+         -dash-line        "------------------------------"
+         -current-date     (fn [] (let [date (java.time.LocalDateTime/now)
+                                        formatter (java.time.format.DateTimeFormatter/ofPattern "yyyy-MM-dd HH:mm:ss")]
+                                    (.format date formatter)))
+         -print-cmd-header {:depends [-current-date -dash-line]
+                            :task    (fn [cmd-name] (println -dash-line) (println (-current-date)) (println cmd-name))}
+         -config           {:requires ([cprop.core :refer [load-config]])
+                            :task     (load-config :file "project-config.edn")}
+         -secrets          {:requires ([cprop.core :refer [load-config]])
+                            :task     (load-config :file "project-secrets.edn")}
+         -env              {:requires ([cprop.source :refer [from-env]])
+                            :task     (from-env)}
+         -shell            {:doc      "Execute shell command ignoring exit code or other errors"
+                            :requires ([clojure.java.shell :refer [sh]])
+                            :task     (fn [^String args]
+                                        (try
+                                          (println args)
+                                          (let [args' (clojure.string/split args (java.util.regex.Pattern/compile "\\s+"))
+                                                {:keys [out err]} (apply sh args')]
+                                            (println out err))
+                                          (catch Exception _)))}
+         -group-id         (:group-id -config)
+         -artifact-id      (:artifact-id -config)
+         -project-name     (:project-name -config)
+         -version-file     "project-version"
+         -version-id       {:depends [-version-file] :task (clojure.string/trim (slurp -version-file))}
+         -jar-filename     {:depends [-config -target-folder -project-name -version-id]
+                            :task    (format "%s/%s-%s.jar" -target-folder -artifact-id -version-id)}
+
+         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+         ;; commands
+         clean             {:doc     "Clean target folder"
+                            :depends [-print-cmd-header -target-folder]
+                            :task    (do (-print-cmd-header "Cleaning target folder...")
+                                         (fs/delete-tree -target-folder)
+                                         (fs/create-dir -target-folder)
+                                         (println "done."))}
+
+         build             {:doc     "Build deployable jar file for this project"
+                            :depends [-print-cmd-header -target-folder -version-id -config -group-id -artifact-id -jar-filename]
+                            :task    (let [params (format "-X:jar :jar %s :group-id %s :artifact-id %s :version '\"%s\"'"
+                                                    -jar-filename
+                                                    -group-id
+                                                    -artifact-id
+                                                    -version-id)]
+                                       (-print-cmd-header "Building jar file...")
+                                       (fs/create-dirs -target-folder)
+                                       (clojure params))}
+
+         install           {:doc     "Install deployable jar locally (requires the pom.xml file)"
+                            :depends [-print-cmd-header -config -jar-filename]
+                            :task    (let [params (format "-X:install :installer :local :artifact '\"%s\"'" -jar-filename)]
+                                       (-print-cmd-header "Installing jar file to local .m2 repository...")
+                                       (clojure params))}
+
+         deploy            {:doc     "Deploy this library to Clojars"
+                            :depends [-print-cmd-header -config -secrets -jar-filename]
+                            :task    (let [cmd (format "clojure -X:install :installer :remote :artifact '\"%s\"'" -jar-filename)]
+                                       (-print-cmd-header "Deploying jar file to Clojars...")
+                                       (shell (format "env CLOJARS_USERNAME=%s CLOJARS_PASSWORD=%s %s"
+                                                (:clojars/username -secrets)
+                                                (:clojars/password -secrets)
+                                                cmd)))}
+
+         repl              {:doc     "Run Clojure repl"
+                            :depends [-print-cmd-header -config]
+                            :task    (do (-print-cmd-header "Running Clojure repl...")
+                                         (clojure "-M:repl"))}
+
+         outdated          {:doc     "Check for outdated dependencies"
+                            :depends [-print-cmd-header -config]
+                            :task    (do (-print-cmd-header "Checking for outdated dependencies...")
+                                         (clojure (str "-M:outdated " (apply str (interpose " " *command-line-args*)))))}
+
+         bump              {:doc     "Bump version artifact in `project-version` file, level may be one of: major, minor, patch, alpha, beta, rc, release."
+                            :depends [-print-cmd-header -config -version-file -version-id]
+                            :task    (let [param (first *command-line-args*)
+                                           level (or (#{"major" "minor" "patch" "alpha" "beta" "rc" "release"} param) "patch")]
+                                       (-print-cmd-header "Bumping version artifact in `project-version` file...")
+                                       (shell {:out -version-file} (format "bb -f scripts/bump-semver.clj %s %s" -version-id level))
+                                       (println -version-id "->" (slurp -version-file)))}
+
+         test              {:doc     "Run tests"
+                            :depends [-print-cmd-header -config]
+                            :task    (do (-print-cmd-header "Running tests...")
+                                         (clojure (str "-M:test " (apply str (interpose " " *command-line-args*)))))}
+
+         format            {:doc     "Format source code"
+                            :depends [-print-cmd-header -config]
+                            :task    (do (-print-cmd-header "Formatting source code...")
+                                         (shell "cljstyle fix"))}
+
+         lint              {:doc     "Lint source code"
+                            :depends [-print-cmd-header -config]
+                            :task    (do (-print-cmd-header "Linting source code...")
+                                         (shell "clj-kondo --parallel --lint src:test/src:dev/src")
+                                         (shell "cljstyle check"))}
+
+         requirements      {:doc      "Install project requirements"
+                            :depends  [-print-cmd-header -config -shell]
+                            :requires ([clojure.java.shell :refer [sh]])
+                            :task     (let [os-name (clojure.string/lower-case (System/getProperty "os.name"))]
+                                        (-print-cmd-header "Installing project requirements...")
+                                        (case os-name
+                                          "mac os x" (do
+                                                       (println "installing tools: git, coreutils, cljstyle, clj-kondo")
+                                                       (-shell "brew install git")
+                                                       (-shell "brew install coreutils")
+                                                       (-shell "brew install --cask cljstyle")
+                                                       (-shell "brew install borkdude/brew/clj-kondo"))
+                                          (println "Please, install manually the following tools: git, cljstyle, clj-kondo")))}
+
+         }}

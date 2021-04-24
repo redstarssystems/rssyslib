@@ -1,0 +1,10 @@
+;; Project configuration
+;; Put here your environment variables and public configuration parameters for this project
+{
+ :project-name {{namespace}}
+ :group-id     {{group}}
+ :artifact-id  {{name}}
+ :git/url      ""
+ }
+
+

@@ -1,5 +1,26 @@
 == Changelog
 
+=== [2.0.0] - 24-04-2021
+
+==== Breaking changes
+
+* now all functionality of `just`, `direnv` utilities performed by `babashka` v0.3.5+ only
+** removed utilities from project requirements: `just`, `direnv`
+** removed config files: `Justfile`, `.env.public`, `.env.private`, `.envrc`
+* artifact name has changed to `org.rssys.libtemplate/clj-template` due to new Clojars policy
+* file `version_id` is renamed to `project-version`
+
+
+==== Added
+
+* `project-config.edn` for public project configuration
+* `project-secrets.edn` for sensitive data, passwords, private project configuration
+* `bb.edn` for tasks (replacement of `Makefile` or `Justfile`)
+
+==== Changed
+
+* updated all deps
+
 === [1.0.0] - 03-03-2021
 
 ==== Added
