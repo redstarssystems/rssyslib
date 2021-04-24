@@ -61,7 +61,7 @@ sudo bash < <(curl -s https://raw.githubusercontent.com/babashka/babashka/master
 +
 [source,bash]
 ----
-just requirements
+bb requirements
 ----
 to install other necessary tools (MacOS only, for Linux manual instruction).
 
