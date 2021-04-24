@@ -1,4 +1,4 @@
-{:output        {:exclude-files [""]}
+{:output        {:exclude-files ["target"]}
 
  :linters       {:consistent-alias
                  {:aliases {clojure.string   string}}

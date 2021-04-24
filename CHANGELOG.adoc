@@ -1,5 +1,13 @@
 == Changelog
 
+
+=== [2.0.1] - 24-04-2021
+
+==== Changed
+
+* .clj-kondo/config.edn is updated cause `:exclude-files` has wrong value
+
+
 === [2.0.0] - 24-04-2021
 
 ==== Breaking changes
