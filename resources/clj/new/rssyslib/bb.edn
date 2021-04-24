@@ -98,7 +98,7 @@
          lint              {:doc     "Lint source code"
                             :depends [-print-cmd-header -config]
                             :task    (do (-print-cmd-header "Linting source code...")
-                                         (shell "clj-kondo --parallel --lint src:test/src:dev/src")
+                                         (shell "clj-kondo --parallel --lint src:test:dev/src")
                                          (shell "cljstyle check"))}
 
          requirements      {:doc      "Install project requirements"
