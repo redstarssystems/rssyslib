@@ -1,5 +1,11 @@
 == Changelog
 
+=== [2.0.3] - 25-04-2021
+
+==== Fixed
+
+* -shell function now exits if Exception occurred to avoid strange behaviour.
+
 
 === [2.0.2] - 24-04-2021
 

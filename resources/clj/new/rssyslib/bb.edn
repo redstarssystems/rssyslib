@@ -15,7 +15,7 @@
                             :task     (load-config :file "project-secrets.edn")}
          -env              {:requires ([cprop.source :refer [from-env]])
                             :task     (from-env)}
-         -shell            {:doc      "Execute shell command ignoring exit code or other errors"
+         -shell            {:doc      "Execute shell command ignoring exit code"
                             :requires ([clojure.java.shell :refer [sh]])
                             :task     (fn [^String args]
                                         (try
@@ -23,7 +23,7 @@
                                           (let [args' (clojure.string/split args (java.util.regex.Pattern/compile "\\s+"))
                                                 {:keys [out err]} (apply sh args')]
                                             (println out err))
-                                          (catch Exception _)))}
+                                          (catch Exception e (do (println (.getMessage e)) (System/exit -1)))))}
          -group-id         (:group-id -config)
          -artifact-id      (:artifact-id -config)
          -project-name     (:project-name -config)
