@@ -18,6 +18,7 @@ This `Library template` helps you to quick start new library project using {cloj
 This `Library template` provides:
 
 - project control using {babashka} tasks (v0.3.5+);
+- environment variables control and project configuration using `project-config.edn` file;
 - editor configuration via `.editorconfig` file;
 - configured `clj-kondo` linter;
 - configured `cljstyle` formatter;
