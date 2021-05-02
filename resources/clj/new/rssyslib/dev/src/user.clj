@@ -1,5 +1,6 @@
 (ns user
-  (:require [hashp.core]))
+  (:require
+    [hashp.core]))
 
 
 

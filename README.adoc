@@ -17,8 +17,9 @@ This `Library template` helps you to quick start new library project using {cloj
 
 This `Library template` provides:
 
-- project control using {babashka} tasks (v0.3.5+);
+- project control using {babashka} tasks (v0.3.7+);
 - environment variables control and project configuration using `project-config.edn` file;
+- secrets & passwords control using `project-secrets.edn` file;
 - editor configuration via `.editorconfig` file;
 - configured `clj-kondo` linter;
 - configured `cljstyle` formatter;
@@ -98,7 +99,7 @@ sudo ./linux-install-1.10.3.822.sh
  }
 ----
 
-. Install {babashka} v0.3.5+
+. Install {babashka} v0.3.7+
 .. MacOS
 +
 [source, bash]

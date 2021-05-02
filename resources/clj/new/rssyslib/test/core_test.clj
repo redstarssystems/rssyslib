@@ -1,7 +1,6 @@
 (ns {{namespace}}.core-test
   (:require [clojure.test :refer [deftest testing is]]
-            [matcho.core :refer [match]]
-            [{{namespace}}.core :as sut]))
+            [matcho.core :refer [match]]))
 
 
 (deftest ^:unit a-test

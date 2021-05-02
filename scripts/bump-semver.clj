@@ -4,7 +4,9 @@
 
 (def ^:dynamic *level* nil)
 
-(defn string->semantic-version [version-string]
+
+(defn string->semantic-version
+  [version-string]
   "Create map representing the given version string. Returns nil if the
   string does not follow guidelines setforth by Semantic Versioning 2.0.0,
   http://semver.org/"
@@ -14,17 +16,20 @@
              #"(\d+)\.(\d+)\.(\d+)(?:-(?!SNAPSHOT)([^\-]+))?(?:-(SNAPSHOT))?"
              version-string)]
     (->> [major minor patch]
-      (map #(Integer/parseInt %))
-      (zipmap [:major :minor :patch])
-      (merge {:qualifier qualifier
-              :snapshot  snapshot}))))
+         (map #(Integer/parseInt %))
+         (zipmap [:major :minor :patch])
+         (merge {:qualifier qualifier
+                 :snapshot  snapshot}))))
 
-(defn parse-semantic-version [version-string]
+
+(defn parse-semantic-version
+  [version-string]
   "Create map representing the given version string. Aborts with exit code 1
   if the string does not follow guidelines setforth by Semantic Versioning 2.0.0,
   http://semver.org/"
   (or (string->semantic-version version-string)
-    (throw (ex-info "Unrecognized version string:" {:version version-string}))))
+      (throw (ex-info "Unrecognized version string:" {:version version-string}))))
+
 
 (defn version-map->string
   "Given a version-map, return a string representing the version."
@@ -34,6 +39,7 @@
       qualifier (str "-" qualifier)
       snapshot (str "-" snapshot))))
 
+
 (defn next-qualifier
   "Increments and returns the qualifier.  If an explicit `sublevel`
   is provided, then, if the original qualifier was using that sublevel,
@@ -42,13 +48,14 @@
   is effectively a BuildNumber."
   ([qualifier]
    (if-let [[_ sublevel] (re-matches #"([^\d]+)?(?:\d+)?"
-                           (or qualifier ""))]
+                                     (or qualifier ""))]
      (next-qualifier sublevel qualifier)
      "1"))
   ([sublevel qualifier]
    (let [pattern (re-pattern (str sublevel "([0-9]+)"))
          [_ n] (and qualifier (re-find pattern qualifier))]
      (str sublevel (inc (Integer. (or n 0)))))))
+
 
 (defn bump-version-map
   "Given version as a map of the sort returned by parse-semantic-version, return
@@ -57,8 +64,8 @@
   if the input is a SNAPSHOT, removes qualifier if the input is not a SNAPSHOT."
   [{:keys [major minor patch qualifier snapshot]} level value]
   (let [level (or level
-                (if qualifier :qualifier)
-                :patch)]
+                  (if qualifier :qualifier)
+                  :patch)]
     (case (keyword (name level))
       :major {:major (if value value (inc major)) :minor 0 :patch 0 :qualifier nil :snapshot "SNAPSHOT"}
       :minor {:major major :minor (if value value (inc minor)) :patch 0 :qualifier nil :snapshot "SNAPSHOT"}
@@ -76,9 +83,10 @@
                   :qualifier (next-qualifier qualifier)
                   :snapshot  "SNAPSHOT"}
       :release (merge {:major major :minor minor :patch patch}
-                 (if snapshot
-                   {:qualifier qualifier :snapshot nil}
-                   {:qualifier nil :snapshot nil})))))
+                      (if snapshot
+                        {:qualifier qualifier :snapshot nil}
+                        {:qualifier nil :snapshot nil})))))
+
 
 (defn bump-version
   "Given a version string, return the bumped version string -
@@ -86,9 +94,9 @@
    non-snapshot. Level defaults to *level*."
   [version-str & [level value]]
   (-> version-str
-    (parse-semantic-version)
-    (bump-version-map (or level *level*) value)
-    (version-map->string)))
+      (parse-semantic-version)
+      (bump-version-map (or level *level*) value)
+      (version-map->string)))
 
 ;; end of Leiningen code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

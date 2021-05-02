@@ -4,7 +4,9 @@
 
 (def ^:dynamic *level* nil)
 
-(defn string->semantic-version [version-string]
+
+(defn string->semantic-version
+  [version-string]
   "Create map representing the given version string. Returns nil if the
   string does not follow guidelines setforth by Semantic Versioning 2.0.0,
   http://semver.org/"
@@ -19,12 +21,15 @@
       (merge {:qualifier qualifier
               :snapshot  snapshot}))))
 
-(defn parse-semantic-version [version-string]
+
+(defn parse-semantic-version
+  [version-string]
   "Create map representing the given version string. Aborts with exit code 1
   if the string does not follow guidelines setforth by Semantic Versioning 2.0.0,
   http://semver.org/"
   (or (string->semantic-version version-string)
     (throw (ex-info "Unrecognized version string:" {:version version-string}))))
+
 
 (defn version-map->string
   "Given a version-map, return a string representing the version."
@@ -34,6 +39,7 @@
       qualifier (str "-" qualifier)
       snapshot (str "-" snapshot))))
 
+
 (defn next-qualifier
   "Increments and returns the qualifier.  If an explicit `sublevel`
   is provided, then, if the original qualifier was using that sublevel,
@@ -41,14 +47,15 @@
   Supports empty strings for sublevel, in which case the return value
   is effectively a BuildNumber."
   ([qualifier]
-   (if-let [[_ sublevel] (re-matches #"([^\d]+)?(?:\d+)?"
-                           (or qualifier ""))]
-     (next-qualifier sublevel qualifier)
-     "1"))
+    (if-let [[_ sublevel] (re-matches #"([^\d]+)?(?:\d+)?"
+                            (or qualifier ""))]
+      (next-qualifier sublevel qualifier)
+      "1"))
   ([sublevel qualifier]
-   (let [pattern (re-pattern (str sublevel "([0-9]+)"))
-         [_ n] (and qualifier (re-find pattern qualifier))]
-     (str sublevel (inc (Integer. (or n 0)))))))
+    (let [pattern (re-pattern (str sublevel "([0-9]+)"))
+          [_ n] (and qualifier (re-find pattern qualifier))]
+      (str sublevel (inc (Integer. (or n 0)))))))
+
 
 (defn bump-version-map
   "Given version as a map of the sort returned by parse-semantic-version, return
@@ -79,6 +86,7 @@
                  (if snapshot
                    {:qualifier qualifier :snapshot nil}
                    {:qualifier nil :snapshot nil})))))
+
 
 (defn bump-version
   "Given a version string, return the bumped version string -

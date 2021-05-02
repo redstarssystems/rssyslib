@@ -1,5 +1,12 @@
 == Changelog
 
+=== [2.0.4] - 02-05-2021
+
+==== Changed
+
+* update `bb.edn` syntax up to `babashka` v0.3.7 which is significantly reduced script size.
+
+
 === [2.0.3] - 25-04-2021
 
 ==== Fixed

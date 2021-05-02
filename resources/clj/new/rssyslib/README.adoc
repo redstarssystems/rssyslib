@@ -42,7 +42,7 @@ sudo ./linux-install-1.10.3.822.sh
  }
 ----
 
-. Install {babashka} v0.3.5+
+. Install {babashka} v0.3.7+
 .. MacOS
 +
 [source, bash]
