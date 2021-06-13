@@ -1,4 +1,4 @@
-{:deps  {cprop/cprop {:mvn/version "0.1.17"}}
+{:deps  {cprop/cprop {:mvn/version "0.1.18"}}
  :tasks {:requires    ([babashka.fs :as fs]
                        [cprop.core :refer [load-config]]
                        [cprop.source :refer [from-env]])
@@ -42,15 +42,15 @@
                                (clojure params))}
 
          deploy       {:doc  "Deploy this library to Clojars"
-                       :task (let [cmd (format "clojure -X:install :installer :remote :artifact '\"%s\"'" jar-filename)]
-                               (shell (format "env CLOJARS_USERNAME=%s CLOJARS_PASSWORD=%s %s"
-                                        (:clojars/username secrets)
-                                        (:clojars/password secrets)
-                                        cmd)))}
+                       :task (let [cmd (format "clojure -X:install :installer :remote :artifact '\"%s\"'" jar-filename)
+                                   env-vars {:CLOJARS_USERNAME (:clojars/username secrets)
+                                             :CLOJARS_PASSWORD (:clojars/password secrets)}]
+                               (shell {:extra-env env-vars} cmd))}
 
          repl         {:doc  "Run Clojure repl"
                        :task (clojure "-M:repl")}
 
+         ;;use `bb outdated --upgrade` or `bb outdated --upgrade --force`
          outdated     {:doc  "Check for outdated dependencies"
                        :task (clojure (str "-M:outdated " (apply str (interpose " " *command-line-args*))))}
 

@@ -1,0 +1,71 @@
+name: Publish new release to Clojars
+on:
+
+# react on every push with tags
+  push:
+    tags:
+      - '*'
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+
+  publish:
+    name: Create release-artifacts
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      # setup JDK
+      - name: Set up JDK 16
+        uses: actions/setup-java@v2
+        with:
+          java-version: '16'
+          distribution: 'adopt'
+
+      # Setup babashka
+      - name: Set up babashka
+        uses: turtlequeue/setup-babashka@v1.3.0
+        with:
+          babashka-version: 0.4.4
+
+      # install clojure tools deps, lein and boot
+      - name: Install clojure tools
+        uses: DeLaGuardo/setup-clojure@3.5
+        with:
+          # Install just one or all simultaneously
+          cli: 1.10.3.875 # Clojure CLI based on tools.deps
+          lein: 2.9.6     # or use 'latest' to always provision latest version of leiningen
+          boot: 2.8.3     # or use 'latest' to always provision latest version of boot
+
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      # Run tests
+#      - name: Run tests
+#        run: bb test
+
+      # Build distr
+      - name: Build distr
+        run: bb build
+
+      # Publish binary Github releases
+#      - name: Upload binaries to release
+#        uses: svenstaro/upload-release-action@v2
+#        with:
+#          repo_token: ${{ secrets.GHR_TOKEN }} # PAT token with rights: repo, user, admin:repo_hook
+#          file: target/mylib*.jar
+#          tag: ${{ github.ref }}
+#          overwrite: true
+#          file_glob: true
+
+      # Publish package as jar file to maven repo on Github
+      - name: Publish new version to Clojars
+        run: mvn --batch-mode deploy
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CLOJARS_USERNAME: ${{ secrets.CLOJARS_USERNAME }}
+          CLOJARS_PASSWORD: ${{ secrets.CLOJARS_PASSWORD }}

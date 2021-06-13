@@ -17,7 +17,7 @@
 
              :test     {:extra-deps  {org.clojure/test.check        {:mvn/version "1.1.0"}
                                       healthsamurai/matcho          {:mvn/version "0.3.7"}
-                                      lambdaisland/kaocha           {:mvn/version "1.0.829"}
+                                      lambdaisland/kaocha           {:mvn/version "1.0.861"}
                                       lambdaisland/kaocha-cloverage {:mvn/version "1.0.75"}}
                         :extra-paths ["resources" "test" "test/resources"]
                         :jvm-opts    []
@@ -35,6 +35,6 @@
                         :exec-fn      deps-deploy.deps-deploy/deploy
                         :exec-args    {:installer :remote :artifact "{{name}}.jar"}}
 
-             :outdated {:extra-deps {com.github.liquidz/antq {:mvn/version "0.13.0"}}
+             :outdated {:extra-deps {com.github.liquidz/antq {:mvn/version "0.15.2"}}
                         :main-opts  ["-m" "antq.core"]}
              }}

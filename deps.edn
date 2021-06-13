@@ -1,7 +1,7 @@
 {:paths   ["src" "resources"]
 
  :deps    {org.clojure/clojure  {:mvn/version "1.10.3"}
-           seancorfield/clj-new {:mvn/version "1.1.297"}}
+           seancorfield/clj-new {:mvn/version "1.1.309"}}
 
  :aliases {
            :new      {:exec-fn   clj-new/create
@@ -28,5 +28,5 @@
            :deploy   {:replace-deps {slipset/deps-deploy {:mvn/version "0.1.5"}}
                       :exec-fn      deps-deploy.deps-deploy/deploy}
 
-           :outdated {:extra-deps {com.github.liquidz/antq {:mvn/version "0.13.0"}}
+           :outdated {:extra-deps {com.github.liquidz/antq {:mvn/version "0.15.2"}}
                       :main-opts  ["-m" "antq.core"]}}}
