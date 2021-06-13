@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.rssys.libtemplate</groupId>
   <artifactId>clj-template</artifactId>
-  <version>2.0.4</version>
+  <version>2.0.5-SNAPSHOT</version>
   <name>rssyslib</name>
   <description>Red Stars Systems library template.</description>
   <url>https://github.com/redstarssystems/rssyslib</url>
@@ -33,7 +33,7 @@
     <dependency>
       <groupId>seancorfield</groupId>
       <artifactId>clj-new</artifactId>
-      <version>1.1.297</version>
+      <version>1.1.309</version>
     </dependency>
   </dependencies>
   <build>

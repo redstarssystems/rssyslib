@@ -1,5 +1,14 @@
 == Changelog
 
+=== [2.0.5] - 13-06-2021
+
+.Added
+* Github Actions CI. Publish new version to Clojars.
+
+.Changed
+* programm `env` replaced with `{:extra-env env-vars}` map before the shell command to pass new environment variables to the shell command.
+* updated dependencies.
+
 === [2.0.4] - 02-05-2021
 
 ==== Changed
