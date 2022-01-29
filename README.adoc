@@ -11,6 +11,9 @@ image:https://img.shields.io/clojars/v/org.rssys.libtemplate/clj-template.svg[cl
 :babashka:          https://github.com/babashka/babashka[babashka]
 :toc:
 
+WARNING: This project is deprecated. Use newer version from here https://github.com/redstarssystems/libtemplate
+
+
 === Intro
 
 This `Library template` helps you to quick start new library project using {clojure-deps-cli} and {clj-new}.
